@@ -29,12 +29,12 @@ attribute :image, kind_of: String, default: node['rancher']['server']['image']
 attribute :version, kind_of: String, default: node['rancher']['server']['version']
 
 attribute :port, kind_of: String, default: node['rancher']['server']['port']
-attribute :detach, kind_of: [TrueClass,FalseClass], default: true
+attribute :detach, kind_of: [TrueClass, FalseClass], default: true
 attribute :restart_policy, kind_of: String, default: 'unless-stopped'
 
-attribute :external_db, kind_of: [TrueClass,FalseClass], default: !node['rancher']['server']['external_db']
-attribute :db_host, kind_of: [Nil,String], default: node['rancher']['server']['db_host']
-attribute :db_port, kind_of: [Nil,String], default: node['rancher']['server']['db_port']
-attribute :db_user, kind_of: [Nil,String], default: node['rancher']['server']['db_user']
-attribute :db_pass, kind_of: [Nil,String], default: node['rancher']['server']['db_pass']
-attribute :db_name, kind_of: [Nil,String], default: node['rancher']['server']['db_name']
+attribute :external_db, kind_of: [TrueClass, FalseClass], default: !node['rancher']['server']['external_db']
+attribute :db_host, kind_of: String, default: node['rancher']['server']['db_host']
+attribute :db_port, kind_of: String, default: node['rancher']['server']['db_port']
+attribute :db_user, kind_of: String, default: node['rancher']['server']['db_user']
+attribute :db_pass, kind_of: String, default: node['rancher']['server']['db_pass']
+attribute :db_name, kind_of: String, default: node['rancher']['server']['db_name']
