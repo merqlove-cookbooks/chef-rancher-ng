@@ -41,9 +41,28 @@ def rancher_create(new_resource)
     action :pull
   end
 
+  if external_db?(new_resource)
+    container_with_external_db(new_resource)
+  else
+    container(new_resource)
+  end
+end
+
+def rancher_delete(new_resource)
+  docker_container new_resource.name do
+    action :delete
+  end
+end
+
+def container_with_external_db(new_resource)
+  container(new_resource, get_command(new_resource))
+end
+
+def container(new_resource, cmd=nil)
   docker_container new_resource.name do
     repo new_resource.image
     tag new_resource.version
+    command cmd unless cmd.nil?
     port "#{new_resource.port}:8080"
     detach new_resource.detach
     container_name new_resource.name
@@ -53,8 +72,26 @@ def rancher_create(new_resource)
   end
 end
 
-def rancher_delete(new_resource)
-  docker_container new_resource.name do
-    action :delete
-  end
+def external_db?(new_resource)
+  new_resource.external_db && validate_db_args(new_resource)
+end
+
+def validate_db_args?(new_resource)
+  [
+    new_resource.db_host,
+    new_resource.db_port,
+    new_resource.db_user,
+    new_resource.db_pass,
+    new_resource.db_name
+  ].all? { |val| !val.nil? }
+end
+
+def gen_command(new_resource)
+  [
+    "--db-host #{new_resource.db_host}",
+    "--db-port #{new_resource.db_port}",
+    "--db-user #{new_resource.db_user}",
+    "--db-pass #{new_resource.db_pass}",
+    "--db-name #{new_resource.db_name}"
+  ].join(' ')
 end

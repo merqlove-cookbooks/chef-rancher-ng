@@ -4,7 +4,7 @@ maintainer_email 'sasha@merqlove.ru'
 license          'Apache 2.0'
 description 'Installs/Configures Rancher'
 long_description 'Installs/Configures Rancher'
-version '0.1.0'
+version '0.1.1'
 
 depends 'docker', '~> 2.0'
 
