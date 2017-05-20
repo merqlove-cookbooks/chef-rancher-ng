@@ -33,3 +33,12 @@ default['rancher']['server']['port'] = '8080'
 # image and tag to use for rancher agent image
 default['rancher']['agent']['image'] = 'rancher/agent'
 default['rancher']['agent']['version'] = 'v1.2.2'
+
+# db
+default['rancher']['server']['external_db'] = nil
+
+default['rancher']['server']['db_host'] = nil
+default['rancher']['server']['db_port'] = nil
+default['rancher']['server']['db_user'] = nil
+default['rancher']['server']['db_pass'] = nil
+default['rancher']['server']['db_name'] = nil
