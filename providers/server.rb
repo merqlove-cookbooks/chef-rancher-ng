@@ -32,9 +32,7 @@ action :delete do
 end
 
 def rancher_create(new_resource)
-  directory new_resource.db_dir do
-    mode '0755'
-  end
+  debug(new_resource)
 
   docker_image new_resource.image do
     tag new_resource.version
@@ -55,7 +53,11 @@ def rancher_delete(new_resource)
 end
 
 def container_with_external_db(new_resource)
-  container(new_resource, get_command(new_resource))
+  directory new_resource.db_dir do
+    mode '0755'
+  end
+
+  container(new_resource, gen_db_command(new_resource))
 end
 
 def container(new_resource, cmd=nil)
@@ -73,10 +75,21 @@ def container(new_resource, cmd=nil)
 end
 
 def external_db?(new_resource)
-  new_resource.external_db && validate_db_args(new_resource)
+  new_resource.external_db && valid_db_args?(new_resource)
 end
 
-def validate_db_args?(new_resource)
+def print_json(new_resource)
+  [:name, :image, :version, :detach, :restart_policy, :port, :db_dir, :db_host, :db_port, :db_user, :db_pass, :db_name].reduce({}) do |acc, key|
+    acc[key] = new_resource.send(key)
+    acc
+  end.to_yaml.to_s.sub("---", '')
+end
+
+def debug(new_resource)
+  log print_json(new_resource)
+end
+
+def valid_db_args?(new_resource)
   [
     new_resource.db_host,
     new_resource.db_port,
@@ -86,7 +99,7 @@ def validate_db_args?(new_resource)
   ].all? { |val| !val.nil? }
 end
 
-def gen_command(new_resource)
+def gen_db_command(new_resource)
   [
     "--db-host #{new_resource.db_host}",
     "--db-port #{new_resource.db_port}",

@@ -21,7 +21,7 @@ actions :create, :delete
 
 default_action :create
 
-attribute :name, name_attribute: true, kind_of: String, default: 'rancher'
+attribute :name, name_attribute: true, kind_of: String
 attribute :cookbook, kind_of: String, default: 'rancher-ng'
 
 attribute :image, kind_of: String, default: node['rancher']['agent']['image']

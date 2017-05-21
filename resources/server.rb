@@ -21,7 +21,7 @@ actions :create, :delete
 
 default_action :create
 
-attribute :name, name_attribute: true, kind_of: String, default: 'rancher'
+attribute :name, name_attribute: true, kind_of: String
 attribute :cookbook, kind_of: String, default: 'rancher-ng'
 
 attribute :db_dir, kind_of: String, default: node['rancher']['server']['db_dir']
@@ -32,7 +32,7 @@ attribute :port, kind_of: String, default: node['rancher']['server']['port']
 attribute :detach, kind_of: [TrueClass, FalseClass], default: true
 attribute :restart_policy, kind_of: String, default: 'unless-stopped'
 
-attribute :external_db, kind_of: [TrueClass, FalseClass], default: !node['rancher']['server']['external_db']
+attribute :external_db, kind_of: [TrueClass, FalseClass], default: node['rancher']['server']['external_db']
 attribute :db_host, kind_of: String, default: node['rancher']['server']['db_host']
 attribute :db_port, kind_of: String, default: node['rancher']['server']['db_port']
 attribute :db_user, kind_of: String, default: node['rancher']['server']['db_user']
