@@ -68,7 +68,7 @@ def container(new_resource, cmd=nil)
     restart_policy new_resource.restart_policy
     volumes [ "#{ new_resource.db_dir }:/var/lib/mysql" ] if cmd.nil?
 
-    action :run_if_missing
+    action :run
   end
 end
 
