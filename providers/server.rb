@@ -42,6 +42,7 @@ def rancher_create(new_resource)
   if external_db?(new_resource)
     container_with_external_db(new_resource)
   else
+    add_directory(new_resource)
     container(new_resource)
   end
 end
@@ -53,8 +54,6 @@ def rancher_delete(new_resource)
 end
 
 def container_with_external_db(new_resource)
-  add_directory(new_resource)
-
   container(new_resource, gen_db_command(new_resource))
 end
 
