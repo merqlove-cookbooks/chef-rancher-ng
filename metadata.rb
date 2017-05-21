@@ -3,8 +3,8 @@ maintainer 'Alexander Merkulov'
 maintainer_email 'sasha@merqlove.ru'
 license          'Apache 2.0'
 description 'Installs/Configures Rancher'
-long_description 'Installs/Configures Rancher'
-version '0.1.5'
+long_description 'Installs and configures Rancher service'
+version '0.1.6'
 
 depends 'docker', '~> 2.0'
 
