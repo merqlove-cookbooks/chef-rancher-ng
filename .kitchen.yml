@@ -24,3 +24,19 @@ suites:
       inspec_tests:
         - test/smoke/default
     attributes:
+  - name: agent
+    run_list:
+      - recipe[rancher-ng::test]
+      - recipe[rancher-ng::agent]
+    verifier:
+      inspec_tests:
+        - test/smoke/agent
+    attributes:
+  - name: server
+    run_list:
+      - recipe[rancher-ng::test]
+      - recipe[rancher-ng::server]
+    verifier:
+      inspec_tests:
+        - test/smoke/server
+    attributes:
