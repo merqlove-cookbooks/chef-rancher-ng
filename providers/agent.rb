@@ -52,7 +52,8 @@ def rancher_create(new_resource)
     action :run_if_missing
   end
 
-  debug_resource(new_resource)
+  debug_resource(new_resource,
+                 [:name, :image, :version, :autoremove, :privileged, :mount_point, :auth_url])
 end
 
 def rancher_delete(new_resource)

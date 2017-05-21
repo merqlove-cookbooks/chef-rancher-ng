@@ -46,7 +46,8 @@ def rancher_create(new_resource)
     container(new_resource)
   end
 
-  debug_resource(new_resource)
+  debug_resource(new_resource,
+                 [:name, :image, :version, :detach, :restart_policy, :port, :db_dir, :db_host, :db_port, :db_user, :db_pass, :db_name])
 end
 
 def rancher_delete(new_resource)
