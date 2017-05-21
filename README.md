@@ -76,7 +76,7 @@ rancher_ng_agent 'name' do
   
   auth_url 'http://yourserver:8080/SOMETOKEN' # Agent's server authentication url
   mount_point '/var/lib/rancher:/var/lib/rancher' # Rancher's volume
-  autoremove true # Docker's `autoremove` mode
+  autoremove true # Docker's `autoremove` mode made manual by Chef.
   privileged true # Docker's `privileged` mode
 
   cookbook  'rancher-ng' # Cookbook to take erb template from

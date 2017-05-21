@@ -41,14 +41,13 @@ def rancher_create(new_resource)
     action :pull
   end
 
-  docker_container new_resource.name do
+  docker_container title(new_resource) do
     image new_resource.image
     tag new_resource.version
     command new_resource.auth_url
     entrypoint '/run.sh'
     volumes ['/var/run/docker.sock:/var/run/docker.sock', new_resource.mount_point]
     env "CATTLE_AGENT_IP=#{ node['ipaddress'] }"
-    autoremove new_resource.autoremove
     privileged new_resource.privileged
 
     action :run
@@ -57,10 +56,16 @@ def rancher_create(new_resource)
 
   debug_resource(new_resource,
                  [:name, :image, :version, :autoremove, :privileged, :mount_point, :auth_url])
+
+  rancher_delete(new_resource) if new_resource.autoremove
 end
 
 def rancher_delete(new_resource)
-  docker_container new_resource.name do
+  docker_container title(new_resource) do
     action :delete
   end
+end
+
+def title(new_resource)
+  "#{new_resource.name}-url-runner"
 end
