@@ -4,9 +4,12 @@ maintainer_email 'sasha@merqlove.ru'
 license          'Apache 2.0'
 description 'Installs/Configures Rancher'
 long_description 'Installs and configures Rancher service'
-version '0.1.22'
+version '0.1.23'
 
 depends 'docker', '~> 2.0'
+
+supports 'ubuntu', '>= 14.04'
+supports 'centos', '>= 7.0'
 
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when
