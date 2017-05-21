@@ -20,11 +20,17 @@
 default['rancher']['server']['image'] = 'rancher/server'
 default['rancher']['server']['version'] = 'v1.6.0'
 
+# Local MySQL DB path
 default['rancher']['server']['db_dir'] = '/var/opt/rancher_db'
 
-# IP or hostname path from rancher server.  Agents use this to communicate to it.
-# Leave as `nil` first
-default['rancher']['server']['auth_url'] = nil
+# External MySQL DB
+default['rancher']['server']['external_db'] = nil
+
+default['rancher']['server']['db_host'] = nil
+default['rancher']['server']['db_port'] = nil
+default['rancher']['server']['db_user'] = nil
+default['rancher']['server']['db_pass'] = nil
+default['rancher']['server']['db_name'] = nil
 
 # Port to expose on host running the rancher server.
 # in the form of 'port' or 'ip:port'
@@ -34,11 +40,6 @@ default['rancher']['server']['port'] = '8080'
 default['rancher']['agent']['image'] = 'rancher/agent'
 default['rancher']['agent']['version'] = 'v1.2.2'
 
-# db
-default['rancher']['server']['external_db'] = nil
-
-default['rancher']['server']['db_host'] = nil
-default['rancher']['server']['db_port'] = nil
-default['rancher']['server']['db_user'] = nil
-default['rancher']['server']['db_pass'] = nil
-default['rancher']['server']['db_name'] = nil
+# Auth ath from rancher server. Agents use this to communicate to it.
+# Leave as `nil` first
+default['rancher']['agent']['auth_url'] = nil
