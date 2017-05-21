@@ -19,6 +19,8 @@
 
 use_inline_resources
 
+require 'uri'
+
 ::Chef::Provider.send(:include, RancherNg::Helpers)
 
 URL_REGEXP = /\A(http[s]?):\/\/([0-9a-z\-.]+):([0-9]+)\/([a-z0-9]+)\/([a-z]+)\/([A-Z0-9]+):([0-9]+):([a-zA-Z0-9]+)\z/
@@ -41,13 +43,16 @@ def rancher_create(new_resource)
     action :pull
   end
 
+  labels = labels_uri(new_resource)
+
   docker_container title(new_resource) do
     image new_resource.image
     tag new_resource.version
     command new_resource.auth_url
     entrypoint '/run.sh'
     volumes ['/var/run/docker.sock:/var/run/docker.sock', new_resource.mount_point]
-    env "CATTLE_AGENT_IP=#{ node['ipaddress'] }"
+    env "CATTLE_AGENT_IP='#{ node['ipaddress'] }'"
+    env "CATTLE_HOST_LABELS='#{ labels }'" unless labels.empty?
     privileged new_resource.privileged
     autoremove new_resource.autoremove
 
@@ -67,4 +72,8 @@ end
 
 def title(new_resource)
   "#{new_resource.name}-url-runner"
+end
+
+def labels_uri(new_resource)
+  URI.encode_www_form( new_resource.labels )
 end

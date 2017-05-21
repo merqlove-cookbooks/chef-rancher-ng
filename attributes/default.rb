@@ -41,6 +41,7 @@ default['rancher_ng']['agent']['image'] = 'rancher/agent'
 default['rancher_ng']['agent']['version'] = 'v1.2.2'
 
 default['rancher_ng']['agent']['autoremove'] = false
+default['rancher_ng']['agent']['labels'] = {}
 
 # Auth ath from rancher server. Agents use this to communicate to it.
 # Leave as `nil` first

@@ -74,6 +74,10 @@ rancher_ng_agent 'name' do
   image 'rancher/agent' # Agent image
   version 'v1.2.2' # Agent image version
   
+  labels {
+    a: 'some',
+    b: 8
+  }
   auth_url 'http://yourserver:8080/SOMETOKEN' # Agent's server authentication url
   mount_point '/var/lib/rancher:/var/lib/rancher' # Rancher's volume
   autoremove false # Docker's `autoremove` mode
