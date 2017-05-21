@@ -46,7 +46,8 @@ def rancher_create(new_resource)
     env "CATTLE_AGENT_IP=\"#{ node['ipaddress'] }\""
     autoremove new_resource.autoremove
     privileged new_resource.privileged
-    not_if "docker inspect #{new_resource.name}"
+
+    action :run_if_missing
   end
 end
 
