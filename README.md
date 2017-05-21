@@ -18,7 +18,7 @@ See the `attributes/default.rb` file for default values.
 
 #### server
 
-Setup default Rancher Server container, based on `node['rancher_ng']['agent']` attributes.
+Setup default Rancher Server container, based on `node['rancher_ng']['server']` attributes.
 
 #### agent
 
