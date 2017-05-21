@@ -44,14 +44,15 @@ def rancher_create(new_resource)
   docker_container new_resource.name do
     image new_resource.image
     tag new_resource.version
-    command "#{ new_resource.auth_url }"
+    command new_resource.auth_url
+    entrypoint '/run.sh'
     volumes ['/var/run/docker.sock:/var/run/docker.sock', new_resource.mount_point]
-    container_name new_resource.name
     env "CATTLE_AGENT_IP=#{ node['ipaddress'] }"
     autoremove new_resource.autoremove
     privileged new_resource.privileged
 
-    action :run_if_missing
+    action :run
+    not_if 'docker inspect rancher-agent'
   end
 
   debug_resource(new_resource,

@@ -69,7 +69,7 @@ Deploys agent container. With this you can skip keys in `agent` provider.
 
 ```ruby
 rancher_ng_agent 'name' do
-  name 'mycontainer' # Container/Job name
+  name 'mycontainer' # Job name
   
   image 'rancher/agent' # Agent image
   version 'v1.2.2' # Agent image version
