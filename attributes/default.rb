@@ -40,7 +40,7 @@ default['rancher_ng']['server']['port'] = '8080'
 default['rancher_ng']['agent']['image'] = 'rancher/agent'
 default['rancher_ng']['agent']['version'] = 'v1.2.2'
 
-default['rancher_ng']['agent']['autoremove'] = true
+default['rancher_ng']['agent']['autoremove'] = false
 
 # Auth ath from rancher server. Agents use this to communicate to it.
 # Leave as `nil` first

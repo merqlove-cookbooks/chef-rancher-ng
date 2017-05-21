@@ -49,7 +49,7 @@ def rancher_create(new_resource)
     volumes ['/var/run/docker.sock:/var/run/docker.sock', new_resource.mount_point]
     env "CATTLE_AGENT_IP=#{ node['ipaddress'] }"
     privileged new_resource.privileged
-    kill_after 120 if new_resource.autoremove
+    autoremove new_resource.autoremove
 
     action :run
     not_if 'docker inspect rancher-agent'
