@@ -51,8 +51,8 @@ def rancher_create(new_resource)
     command new_resource.auth_url
     entrypoint '/run.sh'
     volumes ['/var/run/docker.sock:/var/run/docker.sock', new_resource.mount_point]
-    env "CATTLE_AGENT_IP='#{ node['ipaddress'] }'"
-    env "CATTLE_HOST_LABELS='#{ labels }'" unless labels.empty?
+    env "CATTLE_AGENT_IP=#{ node['ipaddress'] }"
+    env "CATTLE_HOST_LABELS=#{ labels }" unless labels.empty?
     privileged new_resource.privileged
     autoremove new_resource.autoremove
 
