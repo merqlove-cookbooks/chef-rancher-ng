@@ -17,29 +17,29 @@
 # limitations under the License.
 
 # image and tag to use for rancher server image
-default['rancher']['server']['image'] = 'rancher/server'
-default['rancher']['server']['version'] = 'v1.6.0'
+default['rancher_ng']['server']['image'] = 'rancher/server'
+default['rancher_ng']['server']['version'] = 'v1.6.0'
 
 # Local MySQL DB path
-default['rancher']['server']['db_dir'] = '/var/opt/rancher_db'
+default['rancher_ng']['server']['db_dir'] = '/var/opt/rancher_db'
 
 # External MySQL DB
-default['rancher']['server']['external_db'] = nil
+default['rancher_ng']['server']['external_db'] = nil
 
-default['rancher']['server']['db_host'] = nil
-default['rancher']['server']['db_port'] = nil
-default['rancher']['server']['db_user'] = nil
-default['rancher']['server']['db_pass'] = nil
-default['rancher']['server']['db_name'] = nil
+default['rancher_ng']['server']['db_host'] = nil
+default['rancher_ng']['server']['db_port'] = nil
+default['rancher_ng']['server']['db_user'] = nil
+default['rancher_ng']['server']['db_pass'] = nil
+default['rancher_ng']['server']['db_name'] = nil
 
 # Port to expose on host running the rancher server.
 # in the form of 'port' or 'ip:port'
-default['rancher']['server']['port'] = '8080'
+default['rancher_ng']['server']['port'] = '8080'
 
 # image and tag to use for rancher agent image
-default['rancher']['agent']['image'] = 'rancher/agent'
-default['rancher']['agent']['version'] = 'v1.2.2'
+default['rancher_ng']['agent']['image'] = 'rancher/agent'
+default['rancher_ng']['agent']['version'] = 'v1.2.2'
 
 # Auth ath from rancher server. Agents use this to communicate to it.
 # Leave as `nil` first
-default['rancher']['agent']['auth_url'] = nil
+default['rancher_ng']['agent']['auth_url'] = nil
