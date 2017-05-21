@@ -49,6 +49,8 @@ def rancher_create(new_resource)
     volumes ['/var/run/docker.sock:/var/run/docker.sock', new_resource.mount_point]
     env "CATTLE_AGENT_IP=#{ node['ipaddress'] }"
     privileged new_resource.privileged
+    running_wait_time 120
+    autoremove new_resource.autoremove
 
     action :run
     not_if 'docker inspect rancher-agent'
@@ -57,7 +59,8 @@ def rancher_create(new_resource)
   debug_resource(new_resource,
                  [:name, :image, :version, :autoremove, :privileged, :mount_point, :auth_url])
 
-  rancher_delete(new_resource) if new_resource.autoremove
+  # sleep(1)
+  # rancher_delete(new_resource) if new_resource.autoremove
 end
 
 def rancher_delete(new_resource)
