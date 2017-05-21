@@ -21,6 +21,8 @@ use_inline_resources
 
 ::Chef::Provider.send(:include, RancherNg::Helpers)
 
+URL_REGEXP = /\A(http[s]?):\/\/([0-9a-z\-.]+):([0-9]+)\/([a-z0-9]+)\/([a-z]+)\/([A-Z0-9]+):([0-9]+):([a-zA-Z0-9]+)\z/
+
 action :create do
   rancher_create(new_resource)
 

@@ -29,5 +29,5 @@ attribute :version, kind_of: String, default: node['rancher_ng']['agent']['versi
 
 attribute :auth_url, kind_of: String, default: node['rancher_ng']['agent']['auth_url']
 attribute :mount_point, kind_of: String, default: '/var/lib/rancher:/var/lib/rancher'
-attribute :autoremove, kind_of: [TrueClass, FalseClass], default: true
+attribute :autoremove, kind_of: [TrueClass, FalseClass], default: node['rancher_ng']['agent']['autoremove']
 attribute :privileged, kind_of: [TrueClass, FalseClass], default: true
