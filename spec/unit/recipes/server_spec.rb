@@ -19,14 +19,26 @@
 require 'spec_helper'
 
 describe 'rancher-ng::server' do
-  context 'When all attributes are default, on an unspecified platform' do
-    let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
-      runner.converge(described_recipe)
-    end
+  cached(:chef_run) do
+    ChefSpec::ServerRunner.new.converge(described_recipe)
+  end
 
+  context 'When all attributes are default, on an unspecified platform' do
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
+    end
+  end
+
+  context 'testing create action' do
+    it 'create rancher_server[hello-world]' do
+      expect(chef_run).to create_server('hello-world').with(
+        image: 'rancher/server',
+        version: 'v1.6.0',
+        db_dir: '/var/opt/rancher_db',
+        port: '8080',
+        detach: true,
+        restart_policy: 'unless-stopped'
+      )
     end
   end
 end

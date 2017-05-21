@@ -19,14 +19,26 @@
 require 'spec_helper'
 
 describe 'rancher-ng::agent' do
-  context 'When all attributes are default, on an unspecified platform' do
-    let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
-      runner.converge(described_recipe)
-    end
+  cached(:chef_run) do
+    ChefSpec::ServerRunner.new.converge(described_recipe)
+  end
 
+  context 'When all attributes are default, on an unspecified platform' do
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
+    end
+  end
+
+  context 'testing create action' do
+    it 'create rancher_agent[hello-world]' do
+      expect(chef_run).to create_agent('hello-world').with(
+        image: 'rancher/agent',
+        version: 'v1.2.2',
+        mount_point: '/var/lib/rancher:/var/lib/rancher',
+        auth_url: 'http://yourserver:8080/SOMETOKEN',
+        autoremove: true,
+        privileged: true
+      )
     end
   end
 end
