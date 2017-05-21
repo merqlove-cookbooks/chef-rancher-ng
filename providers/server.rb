@@ -53,9 +53,7 @@ def rancher_delete(new_resource)
 end
 
 def container_with_external_db(new_resource)
-  directory new_resource.db_dir do
-    mode '0755'
-  end
+  add_directory(new_resource)
 
   container(new_resource, gen_db_command(new_resource))
 end
@@ -70,6 +68,19 @@ def container(new_resource, cmd=nil)
     container_name new_resource.name
     restart_policy new_resource.restart_policy
     volumes [ "#{ new_resource.db_dir }:/var/lib/mysql" ] if cmd.nil?
+    action :run
+  end
+end
+
+def add_directory(new_resource)
+  return unless new_resource.db_dir
+
+  directory new_resource.db_dir do
+    mode '0755'
+  end
+
+  execute 'fix rancher db rights' do
+    command "chown -R 102:105 #{new_resource.db_dir}"
     action :run
   end
 end
