@@ -19,6 +19,8 @@
 
 use_inline_resources
 
+::Chef::Provider.send(:include, RancherNg::Helpers)
+
 action :create do
   rancher_create(new_resource)
 
@@ -49,6 +51,8 @@ def rancher_create(new_resource)
 
     action :run_if_missing
   end
+
+  debug_resource(new_resource)
 end
 
 def rancher_delete(new_resource)

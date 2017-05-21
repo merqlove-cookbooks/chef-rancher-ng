@@ -19,6 +19,8 @@
 
 use_inline_resources
 
+::Chef::Provider.send(:include, RancherNg::Helpers)
+
 action :create do
   rancher_create(new_resource)
 
@@ -32,8 +34,6 @@ action :delete do
 end
 
 def rancher_create(new_resource)
-  debug(new_resource)
-
   docker_image new_resource.image do
     tag new_resource.version
     action :pull
@@ -45,6 +45,8 @@ def rancher_create(new_resource)
     add_directory(new_resource)
     container(new_resource)
   end
+
+  debug_resource(new_resource)
 end
 
 def rancher_delete(new_resource)
@@ -87,17 +89,6 @@ end
 
 def external_db?(new_resource)
   new_resource.external_db && valid_db_args?(new_resource)
-end
-
-def print_json(new_resource)
-  [:name, :image, :version, :detach, :restart_policy, :port, :db_dir, :db_host, :db_port, :db_user, :db_pass, :db_name].reduce({}) do |acc, key|
-    acc[key] = new_resource.send(key)
-    acc
-  end.to_yaml.to_s.sub("---", '')
-end
-
-def debug(new_resource)
-  log print_json(new_resource)
 end
 
 def valid_db_args?(new_resource)
