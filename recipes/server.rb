@@ -16,6 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-rancher_ng_server 'rancher' do 
+rancher_ng_server node['rancher_ng']['server']['name'] do 
   action :create
 end

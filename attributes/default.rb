@@ -17,6 +17,7 @@
 # limitations under the License.
 
 # image and tag to use for rancher server image
+default['rancher_ng']['server']['name'] = 'rancher'
 default['rancher_ng']['server']['image'] = 'rancher/server'
 default['rancher_ng']['server']['version'] = 'v1.6.0'
 
