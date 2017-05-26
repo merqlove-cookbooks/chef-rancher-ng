@@ -17,5 +17,6 @@
 # limitations under the License.
 
 rancher_ng_agent 'rancher' do 
+  auth_url node['rancher_ng']['agent']['auth_url']
   action :create
 end
