@@ -27,7 +27,7 @@ attribute :cookbook, kind_of: String, default: 'rancher-ng'
 attribute :image, kind_of: String, default: node['rancher_ng']['agent']['image']
 attribute :version, kind_of: String, default: node['rancher_ng']['agent']['version']
 
-attribute :auth_url, kind_of: String, default: node['rancher_ng']['agent']['auth_url']
+attribute :auth_url, kind_of: String, default: nil
 attribute :labels, kind_of: Hash, default: node['rancher_ng']['agent']['labels']
 attribute :mount_point, kind_of: String, default: '/var/lib/rancher:/var/lib/rancher'
 attribute :autoremove, kind_of: [TrueClass, FalseClass], default: node['rancher_ng']['agent']['autoremove']

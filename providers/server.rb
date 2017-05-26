@@ -65,7 +65,7 @@ def container(new_resource, cmd=nil)
     repo new_resource.image
     tag new_resource.version
     command cmd unless cmd.nil?
-    port "#{new_resource.port}:8080"
+    port "#{new_resource.port || node['rancher_ng']['server']['port']}:8080"
     detach new_resource.detach
     container_name new_resource.name
     restart_policy new_resource.restart_policy

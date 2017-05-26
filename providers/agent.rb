@@ -48,7 +48,7 @@ def rancher_create(new_resource)
   docker_container title(new_resource) do
     image new_resource.image
     tag new_resource.version
-    command new_resource.auth_url
+    command new_resource.auth_url || node['rancher_ng']['agent']['auth_url']
     entrypoint '/run.sh'
     volumes ['/var/run/docker.sock:/var/run/docker.sock', new_resource.mount_point]
     env "CATTLE_AGENT_IP=#{ node['ipaddress'] }"

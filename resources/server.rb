@@ -28,7 +28,7 @@ attribute :db_dir, kind_of: String, default: node['rancher_ng']['server']['db_di
 attribute :image, kind_of: String, default: node['rancher_ng']['server']['image']
 attribute :version, kind_of: String, default: node['rancher_ng']['server']['version']
 
-attribute :port, kind_of: String, default: node['rancher_ng']['server']['port']
+attribute :port, kind_of: String, default: nil
 attribute :detach, kind_of: [TrueClass, FalseClass], default: true
 attribute :restart_policy, kind_of: String, default: 'unless-stopped'
 
