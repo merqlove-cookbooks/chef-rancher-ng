@@ -96,8 +96,10 @@ def db_container(new_resource)
     repo new_resource.db_container
     tag new_resource.db_container_version
     port "3306:3306"
-    detach true  
-    env ['MYSQL_ROOT_PASSWORD=password', 'MYSQL_DATABASE=cattle', 'MYSQL_USER=cattle', 'MYSQL_PASSWORD=cattle']
+    detach true
+    command "--max_packet_size=32M --innodb_log_file_size=256M --innodb_file_per_table=1 --innodb_buffer_pool_size=1GB"
+    env ['MYSQL_ROOT_PASSWORD=password', 'MYSQL_DATABASE=cattle', 
+         'MYSQL_USER=cattle', 'MYSQL_PASSWORD=cattle']
     container_name "#{new_resource.name}-db"
     restart_policy new_resource.restart_policy
     volumes [ "#{ new_resource.db_dir }:/var/lib/mysql"]
