@@ -49,6 +49,7 @@ def rancher_create(new_resource)
     new_resource.db_name = "cattle"
 
     add_directory(new_resource)
+    db_container(new_resource)
     container_with_external_db(new_resource)
   else
     add_directory(new_resource)
@@ -86,8 +87,6 @@ def container(new_resource, cmd=nil)
 end
 
 def db_container(new_resource)
-  return unless new_resource.db_container
-
   docker_container "#{new_resource.name}-db" do
     repo new_resource.db_container
     tag new_resource.db_container_version
@@ -120,7 +119,7 @@ def external_db?(new_resource)
 end
 
 def db_container?(new_resource)
-  new_resourcedb_container || false
+  new_resource.db_container || false
 end
 
 def valid_db_args?(new_resource)
