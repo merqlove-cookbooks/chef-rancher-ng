@@ -97,7 +97,7 @@ def db_container(new_resource)
     tag new_resource.db_container_version
     port "3306:3306"
     detach true
-    command "--max_allowed_packet=32M --innodb_log_file_size=256M --innodb_large_prefix=on --innodb_file_format=Barracuda --innodb_file_per_table=1 --innodb_buffer_pool_size=1GB"
+    command new_resource.db_container_command
     env ['MYSQL_ROOT_PASSWORD=password', 'MYSQL_DATABASE=cattle', 
          'MYSQL_USER=cattle', 'MYSQL_PASSWORD=cattle']
     container_name "#{new_resource.name}-db"
@@ -115,8 +115,23 @@ def add_directory(new_resource)
     mode '0755'
   end
 
+  if db_container?(new_resource)
+    add_directory_docker(new_resource)
+  else
+    add_directory_inner(new_resource)
+  end
+end
+
+def add_directory_inner(new_resource)
   execute 'fix rancher db rights' do
     command "chown -R 102:105 #{new_resource.db_dir}"
+    action :run
+  end
+end
+
+def add_directory_docker(new_resource)
+  execute 'fix docker db rights' do
+    command "chown -R 999:999 #{new_resource.db_dir}"
     action :run
   end
 end

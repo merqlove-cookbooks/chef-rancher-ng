@@ -50,7 +50,10 @@ rancher_ng_server 'name' do
   restart_policy 'unless-stopped' # Docker's `restart` mode
   
   external_db false # Use external MySQL DB?
-  db_container false # Use DB in container?
+
+  db_container 'mysql' # Use DB in container?
+  db_container_version '5.7'
+  db_container_command '--max_allowed_packet=32M --innodb_log_file_size=256M --innodb_large_prefix=on --innodb_file_format=Barracuda --innodb_file_per_table=1 --innodb_buffer_pool_size=1GB'
   
   db_host 'localhost' # Database host
   db_port '3306' # Database port
