@@ -26,8 +26,8 @@ default['rancher_ng']['server']['db_dir'] = '/var/opt/rancher_db'
 
 # External MySQL DB
 default['rancher_ng']['server']['external_db'] = nil
-default['rancher_ng']['server']['db_container'] = "mariadb"
-default['rancher_ng']['server']['db_container_version'] = "10.2"
+default['rancher_ng']['server']['db_container'] = "mysql"
+default['rancher_ng']['server']['db_container_version'] = "5.7"
 
 default['rancher_ng']['server']['db_host'] = nil
 default['rancher_ng']['server']['db_port'] = nil
