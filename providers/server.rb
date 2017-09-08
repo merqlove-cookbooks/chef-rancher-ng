@@ -87,7 +87,7 @@ def container(new_resource, cmd=nil)
 end
 
 def db_container(new_resource)
-  docker_image "#{new_resource.name}-db" do    
+  docker_image new_resource.db_container do    
     tag new_resource.db_container_version
     action :pull
   end
