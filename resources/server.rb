@@ -33,6 +33,8 @@ attribute :detach, kind_of: [TrueClass, FalseClass], default: true
 attribute :restart_policy, kind_of: String, default: 'unless-stopped'
 
 attribute :external_db, kind_of: [TrueClass, FalseClass], default: node['rancher_ng']['server']['external_db']
+attribute :db_container, kind_of: String, default: node['rancher_ng']['server']['db_container']
+attribute :db_container_version, kind_of: String, default: node['rancher_ng']['server']['db_container_version']
 attribute :db_host, kind_of: String, default: node['rancher_ng']['server']['db_host']
 attribute :db_port, kind_of: String, default: node['rancher_ng']['server']['db_port']
 attribute :db_user, kind_of: String, default: node['rancher_ng']['server']['db_user']

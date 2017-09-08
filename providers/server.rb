@@ -41,13 +41,23 @@ def rancher_create(new_resource)
 
   if external_db?(new_resource)
     container_with_external_db(new_resource)
+  elsif db_container?(new_resource)
+    new_resource.db_host = "172.17.0.1"
+    new_resource.db_port = "3306"
+    new_resource.db_user = "cattle"
+    new_resource.db_pass = "cattle"
+    new_resource.db_name = "cattle"
+
+    add_directory(new_resource)
+    container_with_external_db(new_resource)
   else
     add_directory(new_resource)
     container(new_resource)
   end
 
   debug_resource(new_resource,
-                 [:name, :image, :version, :detach, :restart_policy, :port, :db_dir, :db_host, :db_port, :db_user, :db_pass, :db_name])
+                 [:name, :image, :version, :detach, :restart_policy, :port,
+                  :db_dir, :db_host, :db_port, :db_user, :db_pass, :db_name])
 end
 
 def rancher_delete(new_resource)
@@ -75,6 +85,23 @@ def container(new_resource, cmd=nil)
   end
 end
 
+def db_container(new_resource)
+  return unless new_resource.db_container
+
+  docker_container "#{new_resource.name}-db" do
+    repo new_resource.db_container
+    tag new_resource.db_container_version
+    port "3306:3306"
+    detach true  
+    env ['MYSQL_ROOT_PASSWORD=password', 'MYSQL_DATABASE=cattle', 'MYSQL_USER=cattle', 'MYSQL_PASSWORD=cattle']
+    container_name "#{new_resource.name}-db"
+    restart_policy new_resource.restart_policy
+    volumes [ "#{ new_resource.db_dir }:/var/lib/mysql"]
+
+    action :run
+  end
+end
+
 def add_directory(new_resource)
   return unless new_resource.db_dir
 
@@ -90,6 +117,10 @@ end
 
 def external_db?(new_resource)
   new_resource.external_db && valid_db_args?(new_resource)
+end
+
+def db_container?(new_resource)
+  new_resourcedb_container || false
 end
 
 def valid_db_args?(new_resource)

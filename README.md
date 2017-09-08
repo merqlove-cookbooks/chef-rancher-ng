@@ -50,6 +50,7 @@ rancher_ng_server 'name' do
   restart_policy 'unless-stopped' # Docker's `restart` mode
   
   external_db false # Use external MySQL DB?
+  db_container false # Use DB in container?
   
   db_host 'localhost' # Database host
   db_port '3306' # Database port
