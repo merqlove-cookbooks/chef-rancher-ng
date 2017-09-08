@@ -97,7 +97,7 @@ def db_container(new_resource)
     tag new_resource.db_container_version
     port "3306:3306"
     detach true
-    command "--max_allowed_packet=32M --innodb_log_file_size=256M --innodb_file_per_table=1 --innodb_buffer_pool_size=1GB"
+    command "--max_allowed_packet=32M --innodb_log_file_size=256M --innodb_large_prefix=on --innodb_file_format=Barracuda --innodb_file_per_table=1 --innodb_buffer_pool_size=1GB"
     env ['MYSQL_ROOT_PASSWORD=password', 'MYSQL_DATABASE=cattle', 
          'MYSQL_USER=cattle', 'MYSQL_PASSWORD=cattle']
     container_name "#{new_resource.name}-db"
