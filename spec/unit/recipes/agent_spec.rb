@@ -33,7 +33,7 @@ describe 'rancher-ng::agent' do
     it 'create rancher_agent[hello-world]' do
       expect(chef_run).to create_agent('hello-world').with(
         image: 'rancher/agent',
-        version: 'v1.2.2',
+        version: 'v1.2.5',
         mount_point: '/var/lib/rancher:/var/lib/rancher',
         auth_url: 'http://yourserver:8080/SOMETOKEN',
         autoremove: true,

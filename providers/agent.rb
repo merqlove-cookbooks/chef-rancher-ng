@@ -45,14 +45,18 @@ def rancher_create(new_resource)
 
   labels = labels_uri(new_resource)
 
+  init_agent(new_resource, labels)
+end
+
+def init_agent(new_resource, labels)
   docker_container title(new_resource) do
     image new_resource.image
     tag new_resource.version
     command new_resource.auth_url || node['rancher_ng']['agent']['auth_url']
     entrypoint '/run.sh'
     volumes ['/var/run/docker.sock:/var/run/docker.sock', new_resource.mount_point]
-    env "CATTLE_AGENT_IP=#{ node['ipaddress'] }"
-    env "CATTLE_HOST_LABELS=#{ labels }" unless labels.empty?
+    env "CATTLE_AGENT_IP=#{node['ipaddress']}"
+    env "CATTLE_HOST_LABELS=#{labels}" unless labels.empty?
     privileged new_resource.privileged
     autoremove new_resource.autoremove
 
@@ -61,7 +65,7 @@ def rancher_create(new_resource)
   end
 
   debug_resource(new_resource,
-                 [:name, :image, :version, :autoremove, :privileged, :mount_point, :auth_url])
+                 %i[name image version autoremove privileged mount_point auth_url])
 end
 
 def rancher_delete(new_resource)
@@ -75,5 +79,5 @@ def title(new_resource)
 end
 
 def labels_uri(new_resource)
-  URI.encode_www_form( new_resource.labels )
+  URI.encode_www_form(new_resource.labels)
 end

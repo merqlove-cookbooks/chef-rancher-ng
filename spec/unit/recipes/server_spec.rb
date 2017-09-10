@@ -33,7 +33,7 @@ describe 'rancher-ng::server' do
     it 'create rancher_server[hello-world]' do
       expect(chef_run).to create_server('hello-world').with(
         image: 'rancher/server',
-        version: 'v1.6.0',
+        version: 'v1.6.7',
         db_dir: '/var/opt/rancher_db',
         port: '8080',
         detach: true,
