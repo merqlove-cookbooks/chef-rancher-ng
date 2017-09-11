@@ -19,8 +19,10 @@
 require 'spec_helper'
 
 describe 'rancher-ng::server' do
-  cached(:chef_run) do
-    ChefSpec::ServerRunner.new.converge(described_recipe)
+  let(:chef_run) do
+    ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04') do |node|
+      node.normal['rancher_ng']['server']['name'] = 'hello-world'
+    end.converge(described_recipe)
   end
 
   context 'When all attributes are default, on an unspecified platform' do

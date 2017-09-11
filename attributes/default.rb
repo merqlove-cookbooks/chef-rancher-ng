@@ -19,7 +19,7 @@
 # image and tag to use for rancher server image
 default['rancher_ng']['server']['name'] = 'rancher'
 default['rancher_ng']['server']['image'] = 'rancher/server'
-default['rancher_ng']['server']['version'] = 'v1.6.0'
+default['rancher_ng']['server']['version'] = 'v1.6.7'
 
 # Local MySQL DB path
 default['rancher_ng']['server']['db_dir'] = '/var/opt/rancher_db'
@@ -40,9 +40,12 @@ default['rancher_ng']['server']['db_name'] = nil
 # in the form of 'port' or 'ip:port'
 default['rancher_ng']['server']['port'] = '8080'
 
+# Agent defaults
+default['rancher_ng']['agent']['name'] = 'rancher'
+
 # image and tag to use for rancher agent image
 default['rancher_ng']['agent']['image'] = 'rancher/agent'
-default['rancher_ng']['agent']['version'] = 'v1.2.2'
+default['rancher_ng']['agent']['version'] = 'v1.2.5'
 
 default['rancher_ng']['agent']['autoremove'] = false
 default['rancher_ng']['agent']['labels'] = {}

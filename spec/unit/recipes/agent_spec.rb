@@ -20,7 +20,11 @@ require 'spec_helper'
 
 describe 'rancher-ng::agent' do
   cached(:chef_run) do
-    ChefSpec::ServerRunner.new.converge(described_recipe)
+    ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04') do |node|
+      node.normal['rancher_ng']['agent']['name'] = 'hello-world'
+      node.normal['rancher_ng']['agent']['auth_url'] = 'http://yourserver:8080/SOMETOKEN'
+      node.normal['rancher_ng']['agent']['autoremove'] = true
+    end.converge(described_recipe)
   end
 
   context 'When all attributes are default, on an unspecified platform' do
