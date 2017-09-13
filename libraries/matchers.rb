@@ -7,10 +7,6 @@ if defined?(ChefSpec)
   def create_server(resource_name)
     ChefSpec::Matchers::ResourceMatcher.new(:rancher_ng_server, :create, resource_name)
   end
-  # 
-  # def create_server(resource_name)
-  #   ChefSpec::Matchers::ResourceMatcher.new(:rancher_server, :delete, resource_name)
-  # end
 
   ###############
   # rancher_ng_server
@@ -20,8 +16,4 @@ if defined?(ChefSpec)
   def create_agent(resource_name)
     ChefSpec::Matchers::ResourceMatcher.new(:rancher_ng_agent, :create, resource_name)
   end
-
-  # def create_agent(resource_name)
-  #   ChefSpec::Matchers::ResourceMatcher.new(:rancher_agent, :delete, resource_name)
-  # end
 end

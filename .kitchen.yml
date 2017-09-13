@@ -4,10 +4,7 @@ driver:
 
 provisioner:
   name: chef_zero
-  # You may wish to disable always updating cookbooks in CI or other testing environments.
-  # For example:
-  #   always_update_cookbooks: <%= !ENV['CI'] %>
-  always_update_cookbooks: true
+  always_update_cookbooks: <%= !ENV['CACHE_COOKBOOKS'] %>
 
 verifier:
   name: inspec
@@ -17,26 +14,30 @@ platforms:
   - name: centos-7
 
 suites:
-  - name: default
-    run_list:
-      - recipe[rancher-ng::default]
-    verifier:
-      inspec_tests:
-        - test/smoke/default
-    attributes:
-  - name: agent
-    run_list:
-      - recipe[rancher-ng::test]
-      - recipe[rancher-ng::agent]
-    verifier:
-      inspec_tests:
-        - test/smoke/agent
-    attributes:
-  - name: server
+  - name: server_example
     run_list:
       - recipe[rancher-ng::test]
       - recipe[rancher-ng::server]
-    verifier:
-      inspec_tests:
-        - test/smoke/server
     attributes:
+  - name: agent_example
+    run_list:
+      - recipe[rancher-ng::test]
+      - recipe[rancher-ng::agent]
+    attributes:
+  - name: default
+    run_list:
+      - recipe[rancher-ng]
+    attributes:
+  - name: agent
+    run_list:
+      - recipe[test]
+      - recipe[test::agent_example]
+    attributes:
+  - name: server
+    run_list:
+      - recipe[test]
+      - recipe[test::server_example]
+    attributes:
+      rancher_ng: 
+        agent: 
+          auth_url: 'http://localhost:8080/SOMETOKEN'
